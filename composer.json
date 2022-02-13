@@ -1,13 +1,13 @@
 {
-    "name": "NuWeb Marketing",
-    "description": "Grandmas Recipes Composer Stack",
+    "name": "Alan Bell",
+    "description": "CCBuddy",
     "license": "GPL",
     "secure-http": false,
     "authors": [
         {
-            "name": "Joshua Holdeman",
-            "email": "info@nuweb.marketing",
-            "homepage": "https://nuweb.marketing",
+            "name": "Alan Bell",
+            "email": "",
+            "homepage": "",
             "role": "Owner/Developer"
         }
     ],
