@@ -1,4 +1,4 @@
-#Gramdma's Recipes 
+#CC Buddy
 
 
 ####Development Tools Used 
@@ -22,15 +22,15 @@
 - Integrated Bootstrap 4 and Flexbox
 - Coded and tested with PHP 7.2
 
-###Recipes
-- Add/Edit recipe
-    - Add/Edit recipe details
-        - Name
-        - Description
-        - Serving Size
-        - Prep time and duration type
-        - Cook time and duration type
-    - Add/Edit/Delete ingredients
+###Harvest
+- Add/Edit Harvset
+    - Add/Edit harvest details
+        - Harvest numder
+        - Room numder
+        - Plant date
+        - Harvest date
+        - 
+    - Add/Edit/Delete De-stem
         - Amount
         - Measurement types
         - Ingredient name
