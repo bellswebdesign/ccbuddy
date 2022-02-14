@@ -1,23 +1,14 @@
 {
-    "name": "Alan Bell",
-    "description": "CCBuddy",
-    "license": "GPL",
-    "secure-http": false,
+    "name": "admin/ccbubby",
+    "description": "Harvest traker",
+    "type": "project",
+    "license": "mo",
     "authors": [
         {
             "name": "Alan Bell",
-            "email": "",
-            "homepage": "",
-            "role": "Owner/Developer"
+            "email": "alanbell2012@gmail.com"
         }
     ],
-    "require": {
-        "twbs/bootstrap": "4.0.0",
-        "psy/psysh" : "~0.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "NuWeb\\": "src"
-        }
-    }
+    "require": {}
 }
+
