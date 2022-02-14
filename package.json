@@ -1,10 +1,10 @@
 {
-  "name": "Grandmas-Recipes",
+  "name": "CC Buddy",
   "version": "1.0.0",
-  "description": "Grandmas Recipes Node Package Stack",
-  "author": "Joshua Holdeman",
+  "description": "CC Buddy Node Package Stack",
+  "author": "Alan Bell",
   "license": "ISC",
-  "homepage": "https://nuweb.marketing",
+  "homepage": "",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
