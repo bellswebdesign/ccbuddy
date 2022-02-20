@@ -1,14 +1,14 @@
 <?php require_once('app/initialize.php');
 
-$harvest = new Harvest();
+$strain = new Strain();
 
-$pageTitle = 'Add Harvest';
+$pageTitle = 'Add Strain';
 
 
 if (isset($_POST["submit"])) {
-    $formData = $_POST["harvest"];
-    $addHarvest = new Add();
-    $addHarvest->processAddHarvest();
+    $formData = $_POST["strain"];
+    $addStrain = new AddStrain();
+    $addStrain->processAddStrain();
 }
 
 include('app/includes/layout/header.php');
@@ -24,11 +24,16 @@ include('app/includes/layout/header.php');
               <span data-feather="home"></span>
               Dashboard
             </a>
+          </li><li class="nav-item">
+            <a class="nav-link active" href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains<span class="sr-only">(current)</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="harvest.php">
+            <a class="nav-link" href="harvest.php">
               <span data-feather="file"></span>
-              Harvest<span class="sr-only">(current)</span>
+              Harvest
             </a>
           </li>
           <li class="nav-item">
@@ -69,8 +74,8 @@ include('app/includes/layout/header.php');
 
     <form class="<?= pageSlug($pageTitle); ?>" action="" method="post">
 
-        <input type="hidden" name='harvest[harvest_id]'>
-        <input type="hidden" name='harvest[action]' value="addHarvest">
+        <input type="hidden" name='strain[id]'>
+        <input type="hidden" name='strain[action]' value="addStrain">
 
             <div class="container col-md-10 offset-md-2">
 
@@ -83,34 +88,23 @@ include('app/includes/layout/header.php');
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Harvest Number" name='harvest[harvest_num]'>
-                            <input type="number" class="form-control" placeholder="Room Number" name='harvest[room_num]'>
+                            <input type="text" class="form-control" placeholder="Strain name" name='strain[name]'>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
-                              <h3>Plant Date</h3>
-                            </div>
-                            <input type="date" class="form-control" placeholder="Plant Date" name='harvest[plant_date]'>
+                            <input type="text" class="form-control" placeholder="License" name='strain[license]'>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-10 offset-md-1">
-                            <div class="input-group">
-                                  <h3>Projected Harvest Date</h3>
-                                </div>
-                                <input type="date" class="form-control" placeholder="Harvest Date" name='harvest[harvest_date]'>
-                              </div>
-                          </div>
-                        </div>
+                </div>
 
 
-            <section class="row harvest-submit-container">
+            <section class="row strain-submit-container">
 
                 <div class="col-md-4 offset-md-5 text-center">
-                    <h4>Add Harvest</h4>
+                    <h4>Add Strain</h4>
                     <div class="btn-group">
                         <input id='submit' type='submit' name='submit' value='<?= $pageTitle; ?>' class="btn btn-default btn-lg <?= slugify($pageTitle); ?>-btn"/>
 

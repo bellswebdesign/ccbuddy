@@ -1,18 +1,19 @@
 <?php require_once('app/initialize.php');
 
+$strain = new Strain();
+
+$pageTitle = 'Add Strain';
 $harvest = new Harvest();
-
-$pageTitle = 'Add Harvest';
-
+$allHarvest = $harvest->getAllHarvest();
 
 if (isset($_POST["submit"])) {
-    $formData = $_POST["harvest"];
-    $addHarvest = new Add();
-    $addHarvest->processAddHarvest();
+    $formData = $_POST["destem"];
+    $addDestem = new AddDestem();
+    $addDestem->processAddDestem();
 }
 
 include('app/includes/layout/header.php');
-
+$harvestCount = 0;
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -24,11 +25,16 @@ include('app/includes/layout/header.php');
               <span data-feather="home"></span>
               Dashboard
             </a>
+          </li><li class="nav-item">
+            <a class="nav-link active" href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains<span class="sr-only">(current)</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="harvest.php">
+            <a class="nav-link" href="harvest.php">
               <span data-feather="file"></span>
-              Harvest<span class="sr-only">(current)</span>
+              Harvest
             </a>
           </li>
           <li class="nav-item">
@@ -69,8 +75,8 @@ include('app/includes/layout/header.php');
 
     <form class="<?= pageSlug($pageTitle); ?>" action="" method="post">
 
-        <input type="hidden" name='harvest[harvest_id]'>
-        <input type="hidden" name='harvest[action]' value="addHarvest">
+        <input type="hidden" name='destem[id]'>
+        <input type="hidden" name='destem[action]' value="addDestem">
 
             <div class="container col-md-10 offset-md-2">
 
@@ -83,34 +89,22 @@ include('app/includes/layout/header.php');
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Harvest Number" name='harvest[harvest_num]'>
-                            <input type="number" class="form-control" placeholder="Room Number" name='harvest[room_num]'>
+                          <select>
+                            <option value="">--Please choose an option--
+                            </option>
+                            <?= foreach ($allHarvest as $harvest):?>
+                                <option value="<?= $harvest['harvest_num']; ?>"><?= $harvest['harvest_num']; ?></option>
+                                <?= $harvestCount++; endforeach; ?>
+                          </select>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="input-group">
-                              <h3>Plant Date</h3>
-                            </div>
-                            <input type="date" class="form-control" placeholder="Plant Date" name='harvest[plant_date]'>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 offset-md-1">
-                            <div class="input-group">
-                                  <h3>Projected Harvest Date</h3>
-                                </div>
-                                <input type="date" class="form-control" placeholder="Harvest Date" name='harvest[harvest_date]'>
-                              </div>
-                          </div>
-                        </div>
 
 
-            <section class="row harvest-submit-container">
+            <section class="row strain-submit-container">
 
                 <div class="col-md-4 offset-md-5 text-center">
-                    <h4>Add Harvest</h4>
+                    <h4>Add Strain</h4>
                     <div class="btn-group">
                         <input id='submit' type='submit' name='submit' value='<?= $pageTitle; ?>' class="btn btn-default btn-lg <?= slugify($pageTitle); ?>-btn"/>
 

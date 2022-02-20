@@ -1,15 +1,9 @@
 <?php require_once('app/initialize.php');
 
-if (!isset($_GET['id'])) {
-    redirect_to('all_harvest.php');
-} else {
-    $id = $_GET['id'];
-}
+$pageTitle = 'De-Stem';
+$destem = new Destem();
+$allDestem = $destem->getAllDestem();
 
-
-$harvest = new Harvest();
-$harvestDetails = $harvest->getHarvestId($id);
-$pageTitle = $harvestDetails['harvest_num'];
 
 include('app/includes/layout/header.php');
 
@@ -26,21 +20,15 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_strains.php">
+            <a class="nav-link" href="harvest.php">
               <span data-feather="file"></span>
-              Strains
+              Harvest
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="all_harvest.php">
-              <span data-feather="file"></span>
-              Harvest<span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link active" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
-              De-Stem
+              De-Stem<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
@@ -70,7 +58,7 @@ include('app/includes/layout/header.php');
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Harvest Number <?= $pageTitle; ?></h1>
+        <h1 class="h2"><?= $pageTitle; ?></h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -84,26 +72,35 @@ include('app/includes/layout/header.php');
       </div>
 
 
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-
-              <th>Harvest Number</th>
-              <th>Room Number</th>
-              <th>Plant Date</th>
-              <th>Harvest Date</th>
-              <th>Actual Harvest Date</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
+      <h2><a class="nav-link" href="add-destem.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+</svg>Add De-Stem</a></h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Harvest Number</th>
+        <th>Room Number</th>
+        <th>View<th>
+      </tr>
+    </thead>
+    <tbody>
           <tbody>
-          <td><?= $harvestDetails['harvest_num']; ?></td>
-          <td><?= $harvestDetails['room_num']; ?></td>
-          <td><?= $harvestDetails['plant_date']; ?></td>
-          <td><?= $harvestDetails['harvest_date']; ?></td>
-          <td><?= $harvestDetails['actual_harvest_date']; ?></td>
-          <td><a href="edit-harvest.php?id=<?= $harvestDetails['harvest_id']; ?>">Edit</a></td>
+            <?=
+            $destemCount = 0;
+                foreach ($allDestem as $destem):
+            ?>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <?=
+                $destemCount++; endforeach;
+
+            ?>
           </tbody>
         </table>
       </div>

@@ -1,9 +1,11 @@
 <?php  require_once('app/initialize.php');
 
 $pageTitle = 'Dashboard';
-
+$hideCount = " ";
 $harvest = new Harvest();
 $allHarvest = $harvest->getAllHarvest();
+$strain = new Strain();
+$allStrains = $strain->getAllStrains();
 include('app/includes/layout/header.php');
 
 ?>
@@ -19,13 +21,19 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="harvest.php">
+            <a class="nav-link" href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_harvest.php">
               <span data-feather="file"></span>
               Harvest
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link" href="all_destems.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
@@ -54,7 +62,7 @@ include('app/includes/layout/header.php');
 
       </div>
     </nav>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 clearfooter">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -83,7 +91,9 @@ include('app/includes/layout/header.php');
           </thead>
           <tbody>
             <?=
-            $harvestCount = 1;
+            $harvestCount = 0;
+            $hideCount = $harvestCount;
+
                 foreach ($allHarvest as $harvest):
             ?>
             <tr>
@@ -107,69 +117,26 @@ include('app/includes/layout/header.php');
             <tr>
               <th>Strain</th>
               <th>License</th>
-              <th>License Type</th>
               <th>Weight</th>
               <th>Date</th>
             </tr>
           </thead>
           <tbody>
+            <?=
+              $strainCount = 0;
+                foreach ($allStrains as $strain):
 
+            ?>
             <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
+              <td><?= $strain['name']; ?></td>
+              <td><?= $strain['license']; ?></td>
               <td>2,657</td>
               <td>12/24/21</td>
             </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
-            <tr>
-              <td>LAKC</td>
-              <td>000123</td>
-              <td>AU-EX</td>
-              <td>2,657</td>
-              <td>12/24/21</td>
-            </tr>
+            <?=
+                $strainCount++; endforeach;
+
+            ?>
 
 
           </tbody>

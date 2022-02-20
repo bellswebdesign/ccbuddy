@@ -2,15 +2,20 @@
 
 $harvest = new Harvest();
 
-$pageTitle = 'Add Harvest';
+$pageTitle = 'Edit Harvest';
 
+if (!isset($_GET['id'])) {
+    redirect_to('all_harvest.php');
+} else {
+    $id = $_GET['id'];
+}
 
 if (isset($_POST["submit"])) {
     $formData = $_POST["harvest"];
-    $addHarvest = new Add();
-    $addHarvest->processAddHarvest();
+    $editHarvest = new Edit();
+    $editHarvest->processEditHarvest();
 }
-
+$harvestDetails = $harvest->getHarvestId($id);
 include('app/includes/layout/header.php');
 
 ?>
@@ -23,6 +28,12 @@ include('app/includes/layout/header.php');
             <a class="nav-link" href="index.php">
               <span data-feather="home"></span>
               Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains
             </a>
           </li>
           <li class="nav-item">
@@ -70,7 +81,7 @@ include('app/includes/layout/header.php');
     <form class="<?= pageSlug($pageTitle); ?>" action="" method="post">
 
         <input type="hidden" name='harvest[harvest_id]'>
-        <input type="hidden" name='harvest[action]' value="addHarvest">
+        <input type="hidden" name='harvest[action]' value="editHarvest">
 
             <div class="container col-md-10 offset-md-2">
 
@@ -79,38 +90,37 @@ include('app/includes/layout/header.php');
                         <h1 class="page-title underline text-center"><?= $pageTitle; ?></h1>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-10 offset-md-1">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                      <thead>
+                        <tr>
 
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Harvest Number" name='harvest[harvest_num]'>
-                            <input type="number" class="form-control" placeholder="Room Number" name='harvest[room_num]'>
-                        </div>
-                    </div>
+                          <th>Harvest Number</th>
+                          <th>Room Number</th>
+                          <th>Plant Date</th>
+                          <th>Harvest Date</th>
+                          <th>Actual Harvest Date
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <td><?= $harvestDetails['harvest_num']; ?></td>
+                      <td><?= $harvestDetails['room_num']?></td>
+                      <td><?= $harvestDetails['plant_date']; ?></td>
+                      <td><?= $harvestDetails['harvest_date']; ?></td>
+                      <td><input type="date" class="form-control" value="<?= $harvestDetails['actual_harvest_date']?>" name='actual_harvest_date'></td>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="input-group">
-                              <h3>Plant Date</h3>
-                            </div>
-                            <input type="date" class="form-control" placeholder="Plant Date" name='harvest[plant_date]'>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 offset-md-1">
-                            <div class="input-group">
-                                  <h3>Projected Harvest Date</h3>
-                                </div>
-                                <input type="date" class="form-control" placeholder="Harvest Date" name='harvest[harvest_date]'>
-                              </div>
-                          </div>
-                        </div>
+
+              </div>
 
 
             <section class="row harvest-submit-container">
 
-                <div class="col-md-4 offset-md-5 text-center">
-                    <h4>Add Harvest</h4>
+                <div class="col-md-4 offset-md-4 text-center">
                     <div class="btn-group">
                         <input id='submit' type='submit' name='submit' value='<?= $pageTitle; ?>' class="btn btn-default btn-lg <?= slugify($pageTitle); ?>-btn"/>
 
