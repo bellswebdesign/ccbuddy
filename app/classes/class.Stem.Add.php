@@ -1,6 +1,6 @@
 <?php
 
-class Add extends Harvest
+class AddStemWeight extends Stem
 {
     /**
      * @return string+--+
@@ -15,10 +15,9 @@ class Add extends Harvest
             global $database;
 
             //Filter and validate inputs
-            $harvest_num = filter_var($_POST['harvest']['harvest_num'], FILTER_SANITIZE_NUMBER_INT);
-            $room_num = filter_var($_POST['harvest']['room_num'], FILTER_SANITIZE_NUMBER_INT);
-            $plant_date = filter_var($_POST['harvest']['plant_date'], FILTER_SANITIZE_STRING);
-            $harvest_date = filter_var($_POST['harvest']['harvest_date'], FILTER_SANITIZE_STRING);
+            $de_stem_id= filter_var($_POST['weight']['de_stem_id'], FILTER_SANITIZE_NUMBER_INT);
+            $strain_id= filter_var($_POST['weight']['strain_id'], FILTER_SANITIZE_NUMBER_INT);
+            $weight = filter_var($_POST['weight']['weight'], FILTER_SANITIZE_STRING);
 
             //Sanitize filtered data/escape data to prevent SQL injection
             $harvest_numClean = mysqli_real_escape_string($database->db_connect(),$harvest_num);
@@ -53,11 +52,11 @@ class Add extends Harvest
 
             /**
              * @desc If sql command is successful redirect back to edit page with status of success, otherwise failed
-        *   header("Location: edit-harvest?id=" . $harvestID . '&add_status=success');
-        *   $database->db_disconnect();
-        *  } else {
-        *   echo "Adding harvest failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        *  }
+        *    header("Location: edit-harvest?id=" . $harvestID . '&add_status=success');
+        *    $database->db_disconnect();
+        *   } else {
+        *    echo "Adding harvest failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        *   }
         */
         $database->db_disconnect();
 

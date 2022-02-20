@@ -1,15 +1,15 @@
 <?php
 
-class Harvest {
+class Strain {
 
     /**
      * @return array
      *
      * @desc Return array of all recipes
      */
-    public static function getAllHarvest(){
+    public static function getAllStrains(){
         global $database;
-        $sql = "SELECT * FROM harvest ";
+        $sql = "SELECT * FROM strain ";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
         return $result;
@@ -21,13 +21,14 @@ class Harvest {
      *
      * @desc Return array of all data from a recipe by id
      */
-    public static function getHarvestId($id){
+    public static function getStrainId($id){
         global $database;
-        $sql = "SELECT * FROM harvest ";
-        $sql .= "WHERE harvest_id='" . $id . "'";
+        $sql = "SELECT * FROM strain ";
+        $sql .= "WHERE id='" . $id . "'";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
-        $harvest = mysqli_fetch_assoc($result);
-        return $harvest;
+        $strain = mysqli_fetch_assoc($result);
+        return $strain;
+
     }
 }
