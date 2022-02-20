@@ -89,7 +89,9 @@ body {
     padding-top: 48px; /* Space for fixed navbar */
   }
 }
-
+.clearfooter{
+  padding-bottom: 62px;
+}
 /*
  * Navbar
  */
