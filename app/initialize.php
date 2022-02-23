@@ -14,6 +14,7 @@
 	require_once('classes/class.Destem.php');
 	require_once('classes/class.Room.php');
 	require_once('classes/class.Room.Add.php');
+	require_once('classes/class.HarvestRoom.php');
 
     // Global App Fucntions
     require_once('functions.php');
