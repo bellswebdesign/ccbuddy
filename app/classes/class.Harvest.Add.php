@@ -36,6 +36,24 @@ class Add extends Harvest
       }
 
    }
+
+   public function addHarvestRoomData($newharvestId)
+   {
+     $harvestRoomClass = HarvestRoom();
+     $harvestroom = $_POST["harvestroom"];
+     global $database;
+
+     if (isset($_POST["harvestroom"])) {
+       $room_id = filter_var($harvestroom['room_id'], FILTER_SANITIZE_NUMBER_INT);
+
+
+       //Create SQL script
+       $sql = "INSERT INTO harvest_room SET ";
+       $sql .= "harvest_id = ' " . $newharvestId . "', ";
+       $sql .= "room_id = ' " . $room_id . "'; ";
+       return $sql;
+     }
+   }
    public function processAddHarvest()
     {
         global $database;
@@ -49,15 +67,12 @@ class Add extends Harvest
         if ($result = $mysqli->query($this->addHarvestData())) {
             $harvestID = $mysqli->insert_id;
               redirect_to('all_harvest.php');
+
+
           }
 
             /**
              * @desc If sql command is successful redirect back to edit page with status of success, otherwise failed
-        *   header("Location: edit-harvest?id=" . $harvestID . '&add_status=success');
-        *   $database->db_disconnect();
-        *  } else {
-        *   echo "Adding harvest failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        *  }
         */
         $database->db_disconnect();
 
