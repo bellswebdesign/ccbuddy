@@ -15,3 +15,4 @@ class HarvestRoom extends Harvest {
         $database->confirm_result_set($result);
         return $result;
     }
+}
