@@ -1,11 +1,16 @@
 <?php require_once('app/initialize.php');
 
+if (!isset($_GET['id'])) {
+    redirect_to('all_destem.php');
+} else {
+    $id = $_GET['id'];
+}
+
+$stem = new Stem();
+$allDestemStems = $stem->getDestemStems($id);
 
 
-$pageTitle = 'All Rooms';
-$room = new Room();
-$allRooms = $room->getAllRooms();
-
+$pageTitle = 'De-Stem';
 include('app/includes/layout/header.php');
 
 ?>
@@ -19,17 +24,16 @@ include('app/includes/layout/header.php');
               <span data-feather="home"></span>
               Dashboard
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="departments.php">
+            <li class="nav-item">
+              <a class="nav-link" href="departments.php">
+                <span data-feather="file"></span>
+                Departmants
+              </a>
+            </li>
+          </li><li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
               <span data-feather="file"></span>
-              Departmants
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="all_harvest.php">
-              <span data-feather="file"></span>
-              Rooms<span class="sr-only">(current)</span>
+              Rooms
             </a>
           </li>
           <li class="nav-item">
@@ -45,15 +49,15 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="all_harvest.php">
+            <a class="nav-link" href="harvest.php">
               <span data-feather="file"></span>
               Harvest
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_destem.php">
+            <a class="nav-link active" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
-              De-Stem
+              De-Stem<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
@@ -77,6 +81,8 @@ include('app/includes/layout/header.php');
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+
+
       </div>
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 clearfooter">
@@ -85,7 +91,7 @@ include('app/includes/layout/header.php');
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <a href="export.php?id=<?= $id; ?>" class="btn btn-default btn-sm"><button type="button" class="btn btn-sm btn-outline-secondary">Export</button></a>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
@@ -95,39 +101,61 @@ include('app/includes/layout/header.php');
       </div>
 
 
-      <h2><a class="nav-link" href="add-room.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+      <h2><a class="nav-link" href="add-stem.php?id=<?= $id; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-</svg>Add Room</a></h2>
-
+</svg>Add Stem Weight</a></h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Room Number</th>
-              <th>Harvest Date</th>
-              <th>Edit/View<th>
-
+              <th>Strain</th>
+              <th>License</th>
+              <th>Weight</th>
             </tr>
           </thead>
           <tbody>
+
             <?=
-                $roomCount = 0;
-                foreach ($allRooms as $room):
-            ?>
+            $stemCount = 0;
+            foreach ($allDestemStems as $stem):
+              ?>
+              <tr>
+            <td><?= $stem['short_name'] ?></td>
+            <td><?= $stem['license_type'] . "-" . $stem['license'] ?></td>
+            <td><?= $stem['weight'] ?></td>
+          </tr>
+
+          <? $stemCount++; endforeach; ?>
+
+          </tbody>
+        </table>
+      </div>
+      <h2><a class="nav-link" href="add-destemmember ``.php?id=<?= $id; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+</svg>Add Destem Member</a></h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
             <tr>
-              <td><?= $room['room_num']; ?></td>
-              <th></td>
-
-              <td><a href="room.php?id=<?= $room['id']; ?>" class="btn btn-default btn-sm
-                ">View</a>
+              <th>Strain</th>
+              <th>License</th>
+              <th>Weight</th>
             </tr>
+          </thead>
+          <tbody>
 
             <?=
+            //$stemCount = 0;
+          //  foreach ($allDestemStems as $stem):
+              ?>
+              <tr>
+            <td><?= //$stem['short_name'] ?></td>
+            <td><?= //$stem['license_type'] . "-" . $stem['license'] ?></td>
+            <td><?= //$stem['weight'] ?></td>
+          </tr>
 
-                $roomCount++; endforeach;
+          <? //$stemCount++; endforeach; ?>
 
-
-            ?>
           </tbody>
         </table>
       </div>

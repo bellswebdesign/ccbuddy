@@ -1,10 +1,12 @@
 <?php require_once('app/initialize.php');
 
-$strain = new Strain();
+$destem = new Destem();
 
-$pageTitle = 'Add Strain';
+$pageTitle = 'Add Destem';
 $harvest = new Harvest();
-$allHarvest = $harvest->getAllHarvest();
+$allActiveHarvest = $harvest->getAllActiveHarvest();
+$room = new Room();
+$allRooms = $room->getAllRooms();
 
 if (isset($_POST["submit"])) {
     $formData = $_POST["destem"];
@@ -13,7 +15,7 @@ if (isset($_POST["submit"])) {
 }
 
 include('app/includes/layout/header.php');
-$harvestCount = 0;
+
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -25,10 +27,29 @@ $harvestCount = 0;
               <span data-feather="home"></span>
               Dashboard
             </a>
-          </li><li class="nav-item">
-            <a class="nav-link active" href="all_strains.php">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="departments.php">
               <span data-feather="file"></span>
-              Strains<span class="sr-only">(current)</span>
+              Departmants
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
+              <span data-feather="file"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
             </a>
           </li>
           <li class="nav-item">
@@ -38,9 +59,9 @@ $harvestCount = 0;
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link active" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
-              De-Stem
+              De-Stem<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
@@ -75,7 +96,8 @@ $harvestCount = 0;
 
     <form class="<?= pageSlug($pageTitle); ?>" action="" method="post">
 
-        <input type="hidden" name='destem[id]'>
+        <input type="hidden" name='destem[de_stem_id]'>
+        <input type="hidden" name='destem[dep_id]' value="9">
         <input type="hidden" name='destem[action]' value="addDestem">
 
             <div class="container col-md-10 offset-md-2">
@@ -89,12 +111,27 @@ $harvestCount = 0;
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
-                          <select>
-                            <option value="">--Please choose an option--
+                          <select name="destem[harvest_num]"
+                          class="form-control">
+                            <option value="">--Please choose Harvest--
                             </option>
-                            <?= foreach ($allHarvest as $harvest):?>
-                                <option value="<?= $harvest['harvest_num']; ?>"><?= $harvest['harvest_num']; ?></option>
+                            <?= $harvestCount = 0;
+
+                            foreach ($allActiveHarvest as $harvest): ?>
+                                <option value="<?= $harvest['harvest_num']?>"><?= $harvest['harvest_num']?></option>
                                 <?= $harvestCount++; endforeach; ?>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-md-10 offset-md-1">
+                        <div class="input-group">
+                          <select name="destem[room_num]" class="form-control">
+                            <option value="">--Please choose a room--
+                            </option>
+                            <?= $roomCount = 0;
+                            foreach ($allRooms  as $room):?>
+                                <option value="<?= $room['room_num']; ?>"><?= $room['room_num']; ?></option>
+                                <?= $roomCount++; endforeach; ?>
                           </select>
                         </div>
                     </div>

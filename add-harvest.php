@@ -3,7 +3,8 @@
 $harvest = new Harvest();
 
 $pageTitle = 'Add Harvest';
-
+$room = new Room();
+$allRooms = $room->getAllRooms();
 
 if (isset($_POST["submit"])) {
     $formData = $_POST["harvest"];
@@ -26,13 +27,37 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="departments.php">
+              <span data-feather="file"></span>
+              Departmants
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
+              <span data-feather="file"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_strains.php">
+              <span data-feather="file"></span>
+              Strains
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="harvest.php">
               <span data-feather="file"></span>
               Harvest<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
@@ -70,6 +95,7 @@ include('app/includes/layout/header.php');
     <form class="<?= pageSlug($pageTitle); ?>" action="" method="post">
 
         <input type="hidden" name='harvest[harvest_id]'>
+        <input type="hidden" name='harvest[active]' value="1">
         <input type="hidden" name='harvest[action]' value="addHarvest">
 
             <div class="container col-md-10 offset-md-2">
@@ -84,7 +110,12 @@ include('app/includes/layout/header.php');
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
                             <input type="number" class="form-control" placeholder="Harvest Number" name='harvest[harvest_num]'>
-                            <input type="number" class="form-control" placeholder="Room Number" name='harvest[room_num]'>
+
+                            Room Number: <select name='harvest[room_num]' class="form-control">
+                              <?= $roomCount = 0;
+                              foreach ($allRooms as $room): ?>
+                                <option value="<?= $room['id']?> " ><?= $room['room_num']?></option>
+                                <?= $roomCount++; endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -110,7 +141,6 @@ include('app/includes/layout/header.php');
             <section class="row harvest-submit-container">
 
                 <div class="col-md-4 offset-md-5 text-center">
-                    <h4>Add Harvest</h4>
                     <div class="btn-group">
                         <input id='submit' type='submit' name='submit' value='<?= $pageTitle; ?>' class="btn btn-default btn-lg <?= slugify($pageTitle); ?>-btn"/>
 

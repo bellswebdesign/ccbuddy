@@ -3,14 +3,14 @@
 $strain = new Strain();
 
 $pageTitle = 'Add Strain';
-
+$license = new License();
+$allLicenses = $license->getAllLicense();
 
 if (isset($_POST["submit"])) {
     $formData = $_POST["strain"];
     $addStrain = new AddStrain();
     $addStrain->processAddStrain();
 }
-
 include('app/includes/layout/header.php');
 
 ?>
@@ -24,10 +24,29 @@ include('app/includes/layout/header.php');
               <span data-feather="home"></span>
               Dashboard
             </a>
-          </li><li class="nav-item">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="departments.php">
+              <span data-feather="file"></span>
+              Departmants
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
+              <span data-feather="file"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="all_strains.php">
               <span data-feather="file"></span>
               Strains<span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
             </a>
           </li>
           <li class="nav-item">
@@ -37,7 +56,7 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
@@ -95,7 +114,23 @@ include('app/includes/layout/header.php');
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="License" name='strain[license]'>
+                            <input type="text" class="form-control textupcase" placeholder="Strain Short name" name='strain[short_name]' pattern="[A-Z]*">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="input-group">
+                          <select name="strain[license_id]"
+                          class="form-control">
+                            <option value="">-- License --
+                            </option>
+                            <?= $licenseCount = 0;
+
+                            foreach ($allLicenses as $license): ?>
+                                <option value="<?= $license['id']?>"><?= $license['license_type'] . "-" . $license['license']?></option>
+                                <?= $licenseLCount++; endforeach; ?>
+                          </select>
                         </div>
                     </div>
                 </div>

@@ -2,9 +2,9 @@
 
 
 
-$pageTitle = 'All Rooms';
-$room = new Room();
-$allRooms = $room->getAllRooms();
+$pageTitle = 'Departments';
+$department = new Department();
+$allDepartments = $department->getAllDepartments();
 
 include('app/includes/layout/header.php');
 
@@ -21,15 +21,15 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="departments.php">
+            <a class="nav-link active" href="departments.php">
               <span data-feather="file"></span>
-              Departmants
+              Departmants<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="all_harvest.php">
+            <a class="nav-link" href="all_rooms.php">
               <span data-feather="file"></span>
-              Rooms<span class="sr-only">(current)</span>
+              Rooms
             </a>
           </li>
           <li class="nav-item">
@@ -95,36 +95,36 @@ include('app/includes/layout/header.php');
       </div>
 
 
-      <h2><a class="nav-link" href="add-room.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+      <h2><a class="nav-link" href="add-department.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-</svg>Add Room</a></h2>
+</svg>Add Departmant</a></h2>
 
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Room Number</th>
-              <th>Harvest Date</th>
-              <th>Edit/View<th>
+              <th>Departmant</th>
+              <th>Member Count</th>
+              <th>Edit/View</th>
 
             </tr>
           </thead>
           <tbody>
             <?=
-                $roomCount = 0;
-                foreach ($allRooms as $room):
+                $departmentCount = 0;
+                foreach ($allDepartments as $department):
             ?>
             <tr>
-              <td><?= $room['room_num']; ?></td>
+              <td><?= $department['name']; ?></td>
               <th></td>
 
-              <td><a href="room.php?id=<?= $room['id']; ?>" class="btn btn-default btn-sm
+              <td><a href="room.php?id=<?= $department['id']; ?>" class="btn btn-default btn-sm
                 ">View</a>
             </tr>
 
             <?=
 
-                $roomCount++; endforeach;
+                $departmentCount++; endforeach;
 
 
             ?>

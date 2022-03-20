@@ -1,10 +1,15 @@
 <?php require_once('app/initialize.php');
 
+if (!isset($_GET['id'])) {
+    redirect_to('all_licenses.php');
+} else {
+    $id = $_GET['id'];
+}
 
 
-$pageTitle = 'All Rooms';
-$room = new Room();
-$allRooms = $room->getAllRooms();
+$license = new License();
+$licenseDetails = $license->getLicenseId($id);
+$pageTitle = $licenseDetails['license_type'] ."-". $licenseDetails['license'];
 
 include('app/includes/layout/header.php');
 
@@ -21,15 +26,9 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="departments.php">
+            <a class="nav-link" href="all_rooms.php">
               <span data-feather="file"></span>
-              Departmants
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="all_harvest.php">
-              <span data-feather="file"></span>
-              Rooms<span class="sr-only">(current)</span>
+              Rooms
             </a>
           </li>
           <li class="nav-item">
@@ -39,9 +38,9 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_licenses.php">
+            <a class="nav-link active" href="all_licenses.php">
               <span data-feather="file"></span>
-              License
+              License<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
@@ -77,9 +76,11 @@ include('app/includes/layout/header.php');
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+
+
       </div>
     </nav>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 clearfooter">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2"><?= $pageTitle; ?></h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -95,39 +96,20 @@ include('app/includes/layout/header.php');
       </div>
 
 
-      <h2><a class="nav-link" href="add-room.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-</svg>Add Room</a></h2>
-
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>Room Number</th>
-              <th>Harvest Date</th>
-              <th>Edit/View<th>
 
+              <th>License Type</th>
+              <th>License Number</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
-            <?=
-                $roomCount = 0;
-                foreach ($allRooms as $room):
-            ?>
-            <tr>
-              <td><?= $room['room_num']; ?></td>
-              <th></td>
-
-              <td><a href="room.php?id=<?= $room['id']; ?>" class="btn btn-default btn-sm
-                ">View</a>
-            </tr>
-
-            <?=
-
-                $roomCount++; endforeach;
-
-
-            ?>
+          <td><?= $licenseDetails['license_type']; ?></td>
+          <td><?= $licenseDetails['license']; ?></td>
+          <td><a href="edit-license.php?id=<?= $licenseDetails['id']; ?>">Edit</a></td>
           </tbody>
         </table>
       </div>

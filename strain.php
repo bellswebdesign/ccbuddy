@@ -6,10 +6,10 @@ if (!isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-$pageTitle = 'Strain';
-$strain = new Strain();
-$strainDetails = $harvest->getStrainId($id);
 
+$strain = new Strain();
+$strainDetails = $strain->getStrainId($id);
+$pageTitle = $strainDetails['name'];
 include('app/includes/layout/header.php');
 
 ?>
@@ -25,19 +25,31 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_strains.php">
+            <a class="nav-link" href="all_rooms.php">
               <span data-feather="file"></span>
-              Strains
+              Rooms
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="all_harvest.php">
+            <a class="nav-link active" href="all_strains.php">
               <span data-feather="file"></span>
-              Harvest<span class="sr-only">(current)</span>
+              Strains<span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="de_stem.php">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="all_harvest.php">
+              <span data-feather="file"></span>
+              Harvest
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
@@ -83,31 +95,22 @@ include('app/includes/layout/header.php');
       </div>
 
 
-      <h2><a class="nav-link" href="add-harvest.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-</svg><?= $pageTitle; ?></a></h2>
 
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-
-              <th>Harvest Number</th>
-              <th>Room Number</th>
-              <th>Plant Date</th>
-              <th>Harvest Date</th>
-              <th>Actual Harvest Date</th>
-              <th>Edit/View<th>
+              <th>Strain Name</th>
+              <th>Short Name</th>
+              <th>License</th>
+              <th>Rooms in</th>
             </tr>
           </thead>
           <tbody>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><?= $strainDetails['name'] ?></td>
+          <td><?= $strainDetails['short_name'] ?></td>
+          <td><?= $strainDetails['license'] ?></td>
+          <td><a href="#">1</a> <a href="#">2</a> <a href="#">4</a> <a href="#">5</a><?= $strainDetails[''] ?></td>
           </tbody>
         </table>
       </div>

@@ -23,6 +23,12 @@ include('app/includes/layout/header.php');
               <span data-feather="home"></span>
               Dashboard
             </a>
+            <li class="nav-item">
+              <a class="nav-link" href="departments.php">
+                <span data-feather="file"></span>
+                Departmants
+              </a>
+            </li>
           </li><li class="nav-item">
             <a class="nav-link active" href="all_strains.php">
               <span data-feather="file"></span>
@@ -33,6 +39,12 @@ include('app/includes/layout/header.php');
             <a class="nav-link" href="all_strains.php">
               <span data-feather="file"></span>
               Strains
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
             </a>
           </li>
           <li class="nav-item">

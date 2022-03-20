@@ -4,9 +4,9 @@
 
 $pageTitle = 'All Strains';
 
-$strain = new Strain();
-$allStrains = $strain->getAllStrains();
 
+$license = new License();
+$allLicensesStrain = $license->getAllLicenseStrain();
 include('app/includes/layout/header.php');
 
 ?>
@@ -22,9 +22,27 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="departments.php">
+              <span data-feather="file"></span>
+              Departmants
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
+              <span data-feather="file"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="all_strains.php">
               <span data-feather="file"></span>
               Strains<span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
             </a>
           </li>
           <li class="nav-item">
@@ -34,7 +52,7 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_stems.php">
+            <a class="nav-link" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
@@ -93,17 +111,17 @@ include('app/includes/layout/header.php');
           </thead>
           <tbody>
             <?=
-                $strainCount = 0;
-                foreach ($allStrains as $strain):
+                $licensestrainCount = 0;
+                foreach ($allLicensesStrain as $licensestrain):
             ?>
             <tr>
-              <td><?= $strain['name']; ?></td>
-              <td><?= $strain['license']; ?></td>
-              <td><a href="strain.php?id=<?= $strain['id']; ?>" class="btn btn-default btn-lg">View</a>
+              <td><?= $licensestrain['short_name']; ?></td>
+              <td><?= $licensestrain['license_type'] . "-" . $licensestrain['license']; ?></td>
+              <td><a href="strain.php?id=<?= $licensestrain['id']; ?>" class="btn btn-default btn-lg">View</a>
             </tr>
 
             <?=
-                $strainCount++; endforeach;
+                $licensestrainCount++; endforeach;
 
             ?>
           </tbody>

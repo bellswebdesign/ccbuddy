@@ -3,7 +3,7 @@
 $pageTitle = 'Dashboard';
 $hideCount = " ";
 $harvest = new Harvest();
-$allHarvest = $harvest->getAllHarvest();
+$allHarvest = $harvest->getAllActiveHarvest();
 $strain = new Strain();
 $allStrains = $strain->getAllStrains();
 include('app/includes/layout/header.php');
@@ -21,9 +21,27 @@ include('app/includes/layout/header.php');
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="departments.php">
+              <span data-feather="file"></span>
+              Departmants
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_rooms.php">
+              <span data-feather="file"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="all_strains.php">
               <span data-feather="file"></span>
               Strains
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="all_licenses.php">
+              <span data-feather="file"></span>
+              License
             </a>
           </li>
           <li class="nav-item">
@@ -31,9 +49,8 @@ include('app/includes/layout/header.php');
               <span data-feather="file"></span>
               Harvest
             </a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="all_destems.php">
+            <a class="nav-link" href="all_destem.php">
               <span data-feather="shopping-cart"></span>
               De-Stem
             </a>
