@@ -8,34 +8,37 @@ class AddStemWeight extends Stem
      *
      * @desc Return sql insert query for the recipe details
      */
-    public function addHarvestData()
+    public function addStemData()
     {
-       if (isset($_POST['harvest'])){
+       if (isset($_POST['stem'])){
 
             global $database;
-
+            $timestamp = date('Y-m-d');
             //Filter and validate inputs
-            $de_stem_id= filter_var($_POST['weight']['de_stem_id'], FILTER_SANITIZE_NUMBER_INT);
-            $strain_id= filter_var($_POST['weight']['strain_id'], FILTER_SANITIZE_NUMBER_INT);
-            $weight = filter_var($_POST['weight']['weight'], FILTER_SANITIZE_STRING);
+            $de_stem_id= filter_var($_POST['stem']['de_stem_id'], FILTER_SANITIZE_NUMBER_INT);
+            $strain_id= filter_var($_POST['stem']['strain_id'], FILTER_SANITIZE_NUMBER_INT);
+            $license_id= filter_var($_POST['stem']['license_id'], FILTER_SANITIZE_NUMBER_INT);
+            $weight = filter_var($_POST['stem']['weight'], FILTER_SANITIZE_STRING);
 
             //Sanitize filtered data/escape data to prevent SQL injection
-            $harvest_numClean = mysqli_real_escape_string($database->db_connect(),$harvest_num);
-           $roomnumClean = mysqli_real_escape_string($database->db_connect(),$room_num);
-            $plantdateClean = mysqli_real_escape_string($database->db_connect(),$plant_date);
-           $harvestdateClean = mysqli_real_escape_string($database->db_connect(),$harvest_date);
+            $destemidClean = mysqli_real_escape_string($database->db_connect(),$de_stem_id);
+           $strainidClean = mysqli_real_escape_string($database->db_connect(),$strain_id);
+          $licenseIdClean = mysqli_real_escape_string($database->db_connect(),$license_id);
+            $weightClean = mysqli_real_escape_string($database->db_connect(),$weight);
 
             //Create SQL script
-          $sql = "INSERT INTO harvest SET ";
-          $sql .= "harvest_num='" . $harvest_numClean . "', ";
-          $sql .= "room_num='" . $roomnumClean . "', ";
-          $sql .= "plant_date='" . $plantdateClean . "', ";
-          $sql .= "harvest_date='" . $harvestdateClean . "'; ";
+          $sql = "INSERT INTO weight SET ";
+          $sql .= "de_stem_id='" . $destemidClean . "', ";
+          $sql .= "strain_id='" . $strainidClean . "', ";
+          $sql .= "license_id='" . $licenseIdClean . "', ";
+          $sql .= "weight='" . $weightClean . "', ";
+          $sql .= "date='" . $timestamp . "'; ";
           return $sql;
+
       }
 
    }
-   public function processAddHarvest()
+   public function processAddStem()
     {
         global $database;
         $mysqli = $database->db_connect();
@@ -45,9 +48,10 @@ class AddStemWeight extends Stem
          *
          * @desc Begin sql insert command, process recipe data, and if all is successful redirect to edit page with status of success
          */
-        if ($result = $mysqli->query($this->addHarvestData())) {
-            $harvestID = $mysqli->insert_id;
-              redirect_to('all_harvest.php');
+        if ($result = $mysqli->query($this->addStemData())) {
+            $stemID = $mysqli->insert_id;
+            $destemID =$mysqli->de_stem_id;
+              redirect_to('destem.php?id=' . $_POST['stem']['de_stem_id']);
           }
 
             /**

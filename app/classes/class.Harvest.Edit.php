@@ -37,14 +37,6 @@ class Edit extends Harvest
 
                 $sql = $this->updateHarvestData();
 
-                if (!$database->db_connect()->multi_query($sql))
-                    echo "Multi query failed: (" . $database->db_connect()->errno . ") " . $database->db_connect()->error;
-                do {
-                    if ($res = $database->db_connect()->store_result()) {
-                        var_dump($res->fetch_all(MYSQLI_ASSOC));
-                        $res->free();
-                    }
-                } while ($database->db_connect()->more_results() && $database->db_connect()->next_result());
 
                 /**
                  * @return bool
@@ -52,7 +44,6 @@ class Edit extends Harvest
                  * @desc If sql update is successful redirect back to edit page with status of success, otherwise failed
                  */
                 if ($sql) {
-                    header("Location: harvest.php?id=" . $formData['id'] . '&edit_status=success');
                     $database->db_disconnect();
                 } else {
                     header("Location: edit-harvest.php?id=" . $formData['id'] . '&edit_status=failed');

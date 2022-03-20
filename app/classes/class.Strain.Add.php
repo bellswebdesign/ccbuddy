@@ -16,16 +16,19 @@ class AddStrain extends Strain
 
             //Filter and validate inputs
             $strain_name = filter_var($_POST['strain']['name'], FILTER_SANITIZE_STRING);
-            $license = filter_var($_POST['strain']['license'], FILTER_SANITIZE_STRING);
+            $strain_shortname = filter_var($_POST['strain']['short_name'], FILTER_SANITIZE_STRING);
+            $license_id = filter_var($_POST['strain']['license_id'], FILTER_SANITIZE_STRING);
 
             //Sanitize filtered data/escape data to prevent SQL injection
             $nameClean = mysqli_real_escape_string($database->db_connect(),$strain_name);
-            $licenseClean = mysqli_real_escape_string($database->db_connect(),$license);
+            $shortnameClean = mysqli_real_escape_string($database->db_connect(),$strain_shortname);
+            $licenseIdClean = mysqli_real_escape_string($database->db_connect(),$license_id);
 
             //Create SQL script
           $sql = "INSERT INTO strain SET ";
           $sql .= "name='" . $nameClean . "', ";
-          $sql .= "license='" . $licenseClean . "'; ";
+          $sql .= "short_name='" . $shortnameClean . "', ";
+          $sql .= "license_id='" . $licenseIdClean . "'; ";
           return $sql;
       }
 

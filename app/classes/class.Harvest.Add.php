@@ -19,23 +19,28 @@ class Add extends Harvest
             $room_num = filter_var($_POST['harvest']['room_num'], FILTER_SANITIZE_NUMBER_INT);
             $plant_date = filter_var($_POST['harvest']['plant_date'], FILTER_SANITIZE_STRING);
             $harvest_date = filter_var($_POST['harvest']['harvest_date'], FILTER_SANITIZE_STRING);
+            $active = filter_var($_POST['harvest']['active'], FILTER_SANITIZE_STRING);
 
             //Sanitize filtered data/escape data to prevent SQL injection
             $harvest_numClean = mysqli_real_escape_string($database->db_connect(),$harvest_num);
            $roomnumClean = mysqli_real_escape_string($database->db_connect(),$room_num);
             $plantdateClean = mysqli_real_escape_string($database->db_connect(),$plant_date);
            $harvestdateClean = mysqli_real_escape_string($database->db_connect(),$harvest_date);
+          $activeClean = mysqli_real_escape_string($database->db_connect(),$active);
 
             //Create SQL script
           $sql = "INSERT INTO harvest SET ";
           $sql .= "harvest_num='" . $harvest_numClean . "', ";
           $sql .= "room_num='" . $roomnumClean . "', ";
           $sql .= "plant_date='" . $plantdateClean . "', ";
-          $sql .= "harvest_date='" . $harvestdateClean . "'; ";
+          $sql .= "harvest_date='" . $harvestdateClean . "', ";
+          $sql .= "active='" . $activeClean . "'; ";
           return $sql;
       }
 
    }
+
+   
    public function processAddHarvest()
     {
         global $database;
@@ -49,15 +54,12 @@ class Add extends Harvest
         if ($result = $mysqli->query($this->addHarvestData())) {
             $harvestID = $mysqli->insert_id;
               redirect_to('all_harvest.php');
+
+
           }
 
             /**
              * @desc If sql command is successful redirect back to edit page with status of success, otherwise failed
-        *   header("Location: edit-harvest?id=" . $harvestID . '&add_status=success');
-        *   $database->db_disconnect();
-        *  } else {
-        *   echo "Adding harvest failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        *  }
         */
         $database->db_disconnect();
 

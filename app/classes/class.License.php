@@ -1,15 +1,15 @@
 <?php
 
-class Stem {
+class License {
 
     /**
      * @return array
      *
      * @desc Return array of all recipes
      */
-    public static function getAllStem(){
+    public static function getAllLicense(){
         global $database;
-        $sql = "SELECT * FROM weight ";
+        $sql = "SELECT * FROM license ";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
         return $result;
@@ -21,22 +21,21 @@ class Stem {
      *
      * @desc Return array of all data from a recipe by id
      */
-    public static function getDestemId($id){
+    public static function getLicenseId($id){
         global $database;
-        $sql = "SELECT * FROM weight ";
-        $sql .= "WHERE de_stem_id='" . $id . "'";
+        $sql = "SELECT * FROM license ";
+        $sql .= "WHERE id='" . $id . "'";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
-        $stem = mysqli_fetch_assoc($result);
-        return $stem;
+        $license = mysqli_fetch_assoc($result);
+        return $license;
     }
 
-    public static function getDestemStems($id){
+    public static function getAllLicenseStrain(){
       global $database;
-      $sql = "SELECT * FROM weight ";
-      $sql .= "INNER JOIN license ON license.id = weight.license_id ";
-      $sql .= "INNER JOIN strain on strain.id = weight.strain_id ";
-      $sql .= "WHERE weight.de_stem_id='" . $id . "'";
+      $sql = "SELECT * FROM license ";
+      $sql .= "INNER JOIN strain ";
+      $sql .= "ON license.id = strain.license_id";
       $result = mysqli_query($database->db_connect(), $sql);
       $database->confirm_result_set($result);
       return $result;

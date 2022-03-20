@@ -27,8 +27,16 @@ class Destem {
         $sql .= "WHERE de_stem_id='" . $id . "'";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
-        $harvest = mysqli_fetch_assoc($result);
+        $destem = mysqli_fetch_assoc($result);
         return $destem;
+    }
+    public static function getDestemDepId(){
+        global $database;
+        $sql = "SELECT dep_id FROM de_stem LIMIT 1";
+        $result = mysqli_query($database->db_connect(), $sql);
+        $database->confirm_result_set($result);
+        $destemId = mysqli_fetch_assoc($result);
+        return $destemId;
     }
     public static function getDestemHarvestId($id){
         global $database;
@@ -36,7 +44,7 @@ class Destem {
         $sql .= "WHERE harvest_id='" . $id . "'";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
-        $harvest = mysqli_fetch_assoc($result);
+        $destem = mysqli_fetch_assoc($result);
         return $destem;
     }
 }

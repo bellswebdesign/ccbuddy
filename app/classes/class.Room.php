@@ -1,22 +1,15 @@
 <?php
 
-class Harvest {
+class Room {
 
     /**
      * @return array
      *
      * @desc Return array of all recipes
      */
-    public static function getAllActiveHarvest(){
+    public static function getAllRooms(){
         global $database;
-        $sql = "SELECT * FROM harvest WHERE active = 1";
-        $result = mysqli_query($database->db_connect(), $sql);
-        $database->confirm_result_set($result);
-        return $result;
-    }
-    public static function getAllNonActiveHarvest(){
-        global $database;
-        $sql = "SELECT * FROM harvest WHERE active = 0";
+        $sql = "SELECT * FROM room ";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
         return $result;
@@ -28,13 +21,13 @@ class Harvest {
      *
      * @desc Return array of all data from a recipe by id
      */
-    public static function getHarvestId($id){
+    public static function getRoomId($id){
         global $database;
-        $sql = "SELECT * FROM harvest ";
-        $sql .= "WHERE harvest_id='" . $id . "'";
+        $sql = "SELECT * FROM room ";
+        $sql .= "WHERE id='" . $id . "'";
         $result = mysqli_query($database->db_connect(), $sql);
         $database->confirm_result_set($result);
         $harvest = mysqli_fetch_assoc($result);
-        return $harvest;
+        return $room;
     }
 }
